@@ -13,9 +13,7 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   /*
@@ -26,19 +24,17 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [
-  ],
+  css: [],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-  ],
+  plugins: [],
 
   /*
   ** Nuxt.js modules
   */
-  modules: [,
+  modules: [
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt'
   ],
@@ -51,6 +47,16 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+      config.module.rules.push({
+        enforce: 'pre',
+        test: /\.modernizrrc\.js$/,
+        loader: 'webpack-modernizr-loader',
+        exclude: /(node_modules)/
+      })
+
+      config.resolve.alias['modernizr'] =
+        this.options.rootDir + '/.modernizrrc.js'
+
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({

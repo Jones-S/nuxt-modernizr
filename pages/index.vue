@@ -24,16 +24,19 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
+import modernizr from 'modernizr'
 
 export default {
   components: {
     Logo
+  },
+  mounted() {
+    console.log('modernizr: ', modernizr) // eslint-disable-line
   }
 }
 </script>
 
 <style>
-
 .container {
   min-height: 100vh;
   display: flex;

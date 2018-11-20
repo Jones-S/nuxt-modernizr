@@ -46,28 +46,23 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend(config, ctx) {
-      config.module.rules.push({
-        enforce: 'pre',
-        test: /\.modernizrrc\.js$/,
-        loader: 'webpack-modernizr-loader',
-        exclude: /(node_modules)/
-      })
-
-      config.resolve.alias['modernizr'] =
-        this.options.rootDir + '/.modernizrrc.js'
-
-      // console.log('config.resolve.alias: ', config.resolve.alias) // eslint-disable-line
-      // console.log('this.options.rootDir: ', this.options.rootDir) // eslint-disable-line
-
+    extend(config, { isDev, isClient }) {
       // Run ESLint on save
-      if (ctx.isDev && ctx.isClient) {
+      if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
+
+        config.module.rules.push({
+          test: /\.modernizrrc\.js$/,
+          loader: 'webpack-modernizr-loader'
+        })
+
+        config.resolve.alias['modernizr'] = '/.modernizrrc.js'
+        console.log('this: ', config) // eslint-disable-line
       }
     }
   }

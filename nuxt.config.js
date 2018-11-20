@@ -57,6 +57,9 @@ module.exports = {
       config.resolve.alias['modernizr'] =
         this.options.rootDir + '/.modernizrrc.js'
 
+      // console.log('config.resolve.alias: ', config.resolve.alias) // eslint-disable-line
+      // console.log('this.options.rootDir: ', this.options.rootDir) // eslint-disable-line
+
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
